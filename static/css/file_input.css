@@ -1,56 +1,160 @@
-.files input {
-  outline: 2px dashed #ff5722;
-  outline-offset: -10px;
-  -webkit-transition: outline-offset 0.15s ease-in-out, background-color 0.15s linear;
-  transition: outline-offset 0.15s ease-in-out, background-color 0.15s linear;
-  padding: 120px 0 120px 0;
-  margin: 0;
-  text-align: center !important;
-  overflow: hidden;
-  width: 100% !important;
+body {
+  font-damily: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f8f8f8;
 }
-.files input:focus {
-  outline: 2px dashed #ff5722;
-  outline-offset: -10px;
-  -webkit-transition: outline-offset 0.15s ease-in-out, background-color 0.15s linear;
-  transition: outline-offset 0.15s ease-in-out, background-color 0.15s linear;
-  border: 1px solid #ff5722;
-}
-.files {
-  position: relative;
-}
-.files:after {
-  pointer-events: none;
-  position: absolute;
-  top: 60px;
-  left: 0;
-  width: 50px;
-  right: 0;
-  height: 56px;
-  content: "";
-  background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
-  display: block;
-  margin: 0 auto;
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-.color input {
-  background-color: #ff5722;
-  color: #ff5722;
-}
-.files:before {
-  position: absolute;
-  bottom: 10%;
-  left: 0;
-  pointer-events: none;
-  width: 100%;
-  right: 0;
-  height: 10%;
-  content: " or drag it here. ";
-  display: block;
-  margin: 0 auto;
-  color: #ff5722;
-  font-weight: 600;
-  text-transform: capitalize;
+
+.button {
+  font-family: inherit;
   text-align: center;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: : rgb(0, 120, 212);
+  padding: 0.5rem 1.2rem;
+  border-radius: 2px;
+  font-size: 1rem;
+  min-width: 6rem;
+}
+
+.button:hover {
+  background-color: rgb(16, 110, 190);
+}
+
+.button.disabled {
+  pointer-events: none;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.main {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main .title h3 {
+  font-size: 2.3rem;
+  font-weight: 300;
+  margin: 0.8rem 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal:hover {
+  opacity:0.2;
+}
+
+.upload-box {
+  font-size: 0.8 rem;
+  color:#666666;
+  cursor: pointer;
+  width: 16rem;
+  height: 10rem;
+  background: #fff;
+  border: 0.1rem dashed #838383;
+  border-radius: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem 0 2rem 0;
+}
+
+.upload-box dragover {
+  color:#eeeeee;
+  border: 0.1rem solid rgb(0, 120, 212);
+  box-shadox: inset 0 0 0 0.1rem rgb(0, 120, 212);
+}
+
+.upload-box:hover {
+  border-color: rgb(0, 120, 212);
+}
+
+.upload-box #image-preview {
+  max-width: 14rem;
+  max-height: 8rem;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+#image-result {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-height: 20rem;
+}
+
+#image-box {
+  position: relative;
+  width: auto;
+  float: left;
+  margin-bottom: 2rem;
+}
+
+#image-display {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-height: 20rem;
+}
+
+#image-display.loading {
+  filter:brightness(30%);
+}
+
+#pred-result {
+  color: white;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+#loader {
+  posititon: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 10;
+  margin: 0 auto;
+}
+
+#spinner {
+  box-sizing: border-box;
+  stroke: #cccccc;
+  stroke-width: 3px;
+  transform-origin: 50%;
+  animation: line 1.6s cubic-beziser(0.4, 0, 0.2, 1) infinite,
+    rotate 1.6s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(450deg);
+  }
+}
+
+@keyframes line {
+  0% {
+    stroke-dasharray: 2, 85.964;
+    transform: rotate(0);
+  }
+  50% {
+    stroke-dasharray: 65.973, 21.9911;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 2, 85.964;
+    stroke-dashoffset: -65.973;
+    transform:rotate(90deg);
+  }
 }
