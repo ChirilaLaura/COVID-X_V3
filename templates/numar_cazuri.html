@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CovidX</title>
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cards_flip.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css')}}">
+    
+
+</head>
+
+
+
+<body>
+    {%include "navbar.html" %}
+
+    
+    <div class="container my-5">
+
+      <section class="p-5 z-depth-1">
+        
+        <h3 class="text-center font-weight-bold mb-5">Statistici globale</h3>
+    
+        <div class="row d-flex justify-content-center">
+    
+          <div class="col-md-6 col-lg-3 mb-4 text-center">
+            <h4 class="h1 font-weight-normal mb-3">
+              <i class="far fa-check-circle orange-text"></i>
+              <span class="d-inline-block count-up" data-from="0" data-to="100" data-time="2000" id="total_infected"></span>
+            </h4>
+            <p class="font-weight-normal text-muted">Cazuri confirmate</p>
+          </div>
+    
+          <div class="col-md-6 col-lg-3 mb-4 text-center">
+            <h4 class="h1 font-weight-normal mb-3">
+              <i class="fas fa-first-aid orange-text"></i>
+              <span class="d-inline-block count1" data-from="0" data-to="250" data-time="2000" id="vindecati"></span>
+            </h4>
+            <p class="font-weight-normal text-muted">Vindecati</p>
+          </div>
+    
+          <div class="col-md-6 col-lg-3 mb-4 text-center">
+            <h4 class="h1 font-weight-normal mb-3">
+              <i class="fas fa-exclamation orange-text"></i>
+              <span class="d-inline-block count2" data-from="0" data-to="330" data-time="2000" id="critical"></span>
+            </h4>
+            <p class="font-weight-normal text-muted">Stare critica</p>
+          </div>
+          
+          <div class="col-md-6 col-lg-3 mb-4 text-center">
+            <h4 class="h1 font-weight-normal mb-3">
+              <i class="fas fa-skull-crossbones orange-text"></i>
+              <span class="d-inline-block count3" data-from="0" data-to="430" data-time="2000" id="decese"></span>
+            </h4>
+            <p class="font-weight-normal text-muted">Decese</p>
+          </div>
+    
+        </div>
+    
+      </section>    
+    
+    </div>
+
+
+
+
+
+
+  <script type="text/javascript">
+	var data = null;
+
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
+
+	xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
+	}
+  });
+
+	xhr.open("GET", "https://covid-19-data.p.rapidapi.com/totals?format=json");
+	xhr.setRequestHeader("x-rapidapi-host", "covid-19-data.p.rapidapi.com");
+	xhr.setRequestHeader("x-rapidapi-key", "ef0772bc94msh90c8d83830ca946p12bc46jsn27979572d959");
+
+	xhr.send(data);
+
+  </script>
+
+
+   
+    <script src="{{ url_for('static', filename='js/jquery.min.js')}}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js')}}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/mdb.min.js')}}" type="text/javascript"></script>
+    
+
+    {%include "footer.html" %}
+</body>
