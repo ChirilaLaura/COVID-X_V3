@@ -1,10 +1,10 @@
-var fileDrag  = document.getElementById("file-drag");
+var fileDrag = document.getElementById("file-drag");
 var fileSelect = document.getElementById("file-upload");
 
 fileDrag.addEventListener("dragover", fileDragHover, false);
 fileDrag.addEventListener("dragleave", fileDragHover, false);
 fileDrag.addEventListener("drop", fileSelectHandler, false);
-fileDrag.addEventListener("change", fileSelectHandler, false);
+fileSelect.addEventListener("change", fileSelectHandler, false);
 
 function fileDragHover(e) {
   e.preventDefault();
@@ -16,10 +16,14 @@ function fileDragHover(e) {
 function fileSelectHandler(e) {
   var files = e.target.files || e.dataTransfer.files;
   fileDragHover(e);
-  for(var i = 0, f; (f = files[i]); i++) {
+  for (var i = 0, f; (f = files[i]); i++) {
     previewFile(f);
   }
 }
+
+//========================================================================
+// Web page elements for functions to use
+//========================================================================
 
 var imagePreview = document.getElementById("image-preview");
 var imageDisplay = document.getElementById("image-display");
@@ -27,27 +31,29 @@ var uploadCaption = document.getElementById("upload-caption");
 var predResult = document.getElementById("pred-result");
 var loader = document.getElementById("loader");
 
-function submitImage() {
-  console.log("submit tbh");
+//========================================================================
+// Main button events
+//========================================================================
 
-  if(!imageDisplay.src || !imageDisplay.src.startsWith("data")) {
-    window.alert("Esti gay!");
-    return ;
+function submitImage() {
+  console.log("submit");
+
+  if (!imageDisplay.src || !imageDisplay.src.startsWith("data")) {
+    window.alert("Please select an image before submit.");
+    return;
   }
 
   loader.classList.remove("hidden");
-  imageDisplay.classList.add("loading")
+  imageDisplay.classList.add("loading");
 
   predictImage(imageDisplay.src);
 }
-
 
 function clearImage() {
   fileSelect.value = "";
 
   imagePreview.src = "";
   imageDisplay.src = "";
-
   predResult.innerHTML = "";
 
   hide(imagePreview);
@@ -71,32 +77,36 @@ function previewFile(file) {
     show(imagePreview);
     hide(uploadCaption);
 
+    // reset
     predResult.innerHTML = "";
     imageDisplay.classList.remove("loading");
 
     displayImage(reader.result, "image-display");
-
   };
 }
 
+//========================================================================
+// Helper functions
+//========================================================================
+
 function predictImage(image) {
-  fetch("/CovidX/Analizeaza_RMN", {
-    method : "POST",
+  fetch("/predict", {
+    method: "POST",
     headers: {
-      "Content-Type" : "application/json"
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(image)
   })
     .then(resp => {
-      if(resp.ok)
+      if (resp.ok)
         resp.json().then(data => {
           displayResult(data);
         });
-      })
-      .catch(err => {
-        console.log("An error occured", err.message);
-        window.alert("Eroare, uita-te in consola");
-      });
+    })
+    .catch(err => {
+      console.log("An error occured", err.message);
+      window.alert("Oops! Something went wrong.");
+    });
 }
 
 function displayImage(image, id) {
@@ -113,8 +123,4 @@ function displayResult(data) {
 
 function hide(el) {
   el.classList.add("hidden");
-}
-
-function show(el) {
-  el.classList.remove("hidden");
 }
