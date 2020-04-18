@@ -39,7 +39,7 @@ function submitImage() {
   console.log("submit");
 
   if (!imageDisplay.src || !imageDisplay.src.startsWith("data")) {
-    window.alert("Please select an image before submit.");
+    window.alert("GAY, ai uitat sa pui imagine");
     return;
   }
 
@@ -77,7 +77,6 @@ function previewFile(file) {
     show(imagePreview);
     hide(uploadCaption);
 
-    // reset
     predResult.innerHTML = "";
     imageDisplay.classList.remove("loading");
 
@@ -90,7 +89,7 @@ function previewFile(file) {
 //========================================================================
 
 function predictImage(image) {
-  fetch("/predict", {
+  fetch("/CovidX/Analizeaza_RMN", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -123,4 +122,8 @@ function displayResult(data) {
 
 function hide(el) {
   el.classList.add("hidden");
+}
+
+function show(el) {
+el.classList.remove("hidden");  
 }

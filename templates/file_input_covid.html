@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>COVID-X</title>
 
-    <script src="{{ url_for('static', filename='js/mri_scan_image.js')}}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -46,5 +43,8 @@
     </div>
 
   </body>
-  {% include "footer.html" %}
+  <footer>
+    <script src="{{ url_for('static',filename='js/mri_scan_image.js') }}"></script>
+    {% include "footer.html" %}
+  </footer>
 </html>
