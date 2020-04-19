@@ -83,9 +83,9 @@
         var totalCazuri = responseObj.Global.TotalConfirmed;
         var vindecati = responseObj.Global.TotalRecovered;
         var decese = responseObj.Global.TotalDeaths;
-        document.getElementById("total_infected").innerHTML = totalCazuri;
-        document.getElementById("vindecati").innerHTML = vindecati;
-        document.getElementById("decese").innerHTML = decese;
+        document.getElementById("total_infected").innerHTML = totalCazuri.toLocaleString();
+        document.getElementById("vindecati").innerHTML = vindecati.toLocaleString();
+        document.getElementById("decese").innerHTML = decese.toLocaleString();
       }
     });
 
