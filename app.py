@@ -3,10 +3,13 @@ from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
 
 import tensorflow as tf
+import tensorflowjs as tfjs
 from tensorflow import keras
 from keras.applications.vgg16 import preprocess_input, decode_predictions
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+from keras.applications import imagenet_utils
+
 
 import os, sys
 import numpy as np
@@ -16,8 +19,10 @@ from util import base64_to_pil
 app = Flask(__name__)
 MODEL = 'TestAI/model.h5'
 model = load_model(MODEL)
-model._make_predict_function()
+#model._make_predict_function()
+
 print("loaded")
+
 
 @app.route('/')
 def index():

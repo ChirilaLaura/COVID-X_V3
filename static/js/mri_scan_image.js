@@ -1,3 +1,9 @@
+import * as tf from '@tensorflow/tfjs';
+
+
+const model = await tf.loadLayersModel('../TestAI/model.json');
+
+
 var fileDrag = document.getElementById("file-drag");
 var fileSelect = document.getElementById("file-upload");
 
@@ -39,7 +45,7 @@ function submitImage() {
   console.log("submit");
 
   if (!imageDisplay.src || !imageDisplay.src.startsWith("data")) {
-    window.alert("GAY, ai uitat sa pui imagine");
+    window.alert("Va rugam introduceti o imagine!");
     return;
   }
 
@@ -125,5 +131,5 @@ function hide(el) {
 }
 
 function show(el) {
-el.classList.remove("hidden");  
+el.classList.remove("hidden");
 }
