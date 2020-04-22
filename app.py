@@ -34,14 +34,14 @@ def index():
 @app.route('/CovidX/Analizeaza_RMN', methods=['GET', 'POST'])
 def image():
     if request.method == 'POST':
-        file = request.file['file']
+        file = request.files['file']
         filename = secure_filename(file.filename)
         file.save(os.path.join('uploads', filename))
         return redirect(url_for('CovidX/Analizeaza_RMN/Rezultat', filename=filename))
     return render_template('file_input_covid.html')
 
 
-@app.route('/CovidX/Analizeaza_RMN/Rezultat/<filename>')
+@app.route('/CovidX/Rezultat/<filename>')
 def prediction(filename):
     my_image = plt.imread(os.path.join('Imagini_salvate', filename))
     my_image_re = resize(my_image, (64, 64, 3))
@@ -57,6 +57,7 @@ def prediction(filename):
             "prob1" : number_classes[index[0]],
             "prob2" : number_classes[index[1]],
         }
+    print(predictions)
     return render_template('rezultat.html', predictions=predictions)
 
 @app.route('/CovidX/Informatii')

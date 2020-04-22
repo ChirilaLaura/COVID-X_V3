@@ -1,9 +1,3 @@
-import * as tf from '@tensorflow/tfjs';
-
-
-const model = await tf.loadLayersModel('../TestAI/model.json');
-
-
 var fileDrag = document.getElementById("file-drag");
 var fileSelect = document.getElementById("file-upload");
 
