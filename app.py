@@ -27,7 +27,7 @@ global graph
 graph = tf.get_default_graph()
 
 
-@app.route('/')
+@app.route('/CovidX/')
 def index():
     return render_template('home.html')
 
@@ -41,7 +41,7 @@ def image():
     return render_template('file_input_covid.html')
 
 
-@app.route('/CovidX/Rezultat/<filename>')
+@app.route('/Rezultat/<filename>')
 def prediction(filename):
     my_image = plt.imread(os.path.join('Imagini_salvate', filename))
     my_image_re = resize(my_image, (64, 64, 3))
@@ -54,8 +54,8 @@ def prediction(filename):
         predictions = {
             "class1" : number_classes[index[0]],
             "class2" : number_classes[index[1]],
-            "prob1" : number_classes[index[0]],
-            "prob2" : number_classes[index[1]],
+            "prob1" : probabilities[index[0]],
+            "prob2" : probabilities[index[1]],
         }
     print(predictions)
     return render_template('rezultat.html', predictions=predictions)

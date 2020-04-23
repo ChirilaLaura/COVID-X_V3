@@ -1,51 +1,15 @@
-</html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>COVID-X</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/file_input.css') }}" />
-
-</head>
-
-<body>
-    {% include "navbar.html" %}
-    <div class="main">
-      <div class="title">
-
-        <h3>Analizeaza radiografie</h3>
-
-      </div>
-
-      <div class="panel">
-        <input id="file-upload" class="hidden" type="file" accept="image/x-png,image/gif,image/jpeg" />
-        <label for="file-upload" id="file-drag" class="upload-box">
-          <div id="upload-caption">Drag/drop la imagine aici</div>
-          <img id="image-preview" class="hidden" />
-        </label>
-      </div>
-      <div style="margin-bottom: 2rem;">
-        <input type="button" value="Submit" class="button" onclick="submitImage();"/>
-        <input type="button" value="Clear" class="button" onclick="clearImage();"/>
-      </div>
-
-      <div id="image-box">
-        <img id="image-display" />
-        <div id="pred-result" class="hidden"></div>
-        <svg id="loader" class="hidden" viewBox="0 0 32 32" width="32" height="32">
-          <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-        </svg>
-      </div>
-    </div>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
-  <script src="{{ url_for('static',filename='js/mri_scan_image.js') }}"></script>
-  {% include "footer.html" %}
-  </body>
+    <title>Classify your Image!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </head> <body style="background-color:black"> <div id="maintext"
+style="position:absolute; margin:auto; width:700px; height:200px; text-align:center; top:0; bottom: 0; left: 0; right: 0;">
+  <h1 class="text-light mb-2"> Upload your image to be classified! </h1>
+  <h4 class="text-light mb-5">(Please upload images less than 500kb in size)</h4>
+  <form method=post enctype=multipart/form-data>
+     <p class="text-light">
+        <input type=file name=file>
+        <input type=submit value=Upload>
+     </p>
+  </form> </div> </body>
 </html>
