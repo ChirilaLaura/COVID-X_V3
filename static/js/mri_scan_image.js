@@ -127,5 +127,3 @@ function hide(el) {
 function show(el) {
 el.classList.remove("hidden");
 }
-
-let net;

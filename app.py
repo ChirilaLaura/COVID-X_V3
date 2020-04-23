@@ -14,6 +14,8 @@ from keras.backend import set_session
 
 import os, sys
 import numpy as np
+import matplotlib.pyplot as plt
+from skimage.transform import resize 
 #utilities modules
 
 global sess
@@ -27,11 +29,11 @@ global graph
 graph = tf.get_default_graph()
 
 
-@app.route('/CovidX/')
+@app.route('/')
 def index():
     return render_template('home.html')
 
-@app.route('/CovidX/Analizeaza_RMN', methods=['GET', 'POST'])
+@app.route('/Analizeaza_RMN/', methods=['GET', 'POST'])
 def image():
     if request.method == 'POST':
         file = request.files['file']
@@ -42,7 +44,7 @@ def image():
 
 
 @app.route('/Rezultat/<filename>')
-def prediction(filename):
+def Rezultat(filename):
     my_image = plt.imread(os.path.join('Imagini_salvate', filename))
     my_image_re = resize(my_image, (64, 64, 3))
 
@@ -60,11 +62,11 @@ def prediction(filename):
     print(predictions)
     return render_template('rezultat.html', predictions=predictions)
 
-@app.route('/CovidX/Informatii')
+@app.route('/Informatii/')
 def info():
     return render_template('informatii.html')
 
-@app.route('/CovidX/numar_cazuri')
+@app.route('/Numar_Cazuri')
 def infected():
     return render_template('numar_cazuri.html')
 
