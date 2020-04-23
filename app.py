@@ -15,7 +15,7 @@ from keras.backend import set_session
 import os, sys
 import numpy as np
 import matplotlib.pyplot as plt
-from skimage.transform import resize 
+from skimage.transform import resize
 #utilities modules
 
 global sess
@@ -38,14 +38,14 @@ def image():
     if request.method == 'POST':
         file = request.files['file']
         filename = secure_filename(file.filename)
-        file.save(os.path.join('Imagini_salvate', filename))
+        file.save(os.path.join('Imagini_salvate/', filename))
         return redirect(url_for('Rezultat', filename=filename))
     return render_template('file_input_covid.html')
 
 
 @app.route('/Rezultat/<filename>')
 def Rezultat(filename):
-    my_image = plt.imread(os.path.join('Imagini_salvate', filename))
+    my_image = plt.imread(os.path.join('Imagini_salvate/', filename))
     my_image_re = resize(my_image, (64, 64, 3))
 
     with graph.as_default():
@@ -66,7 +66,7 @@ def Rezultat(filename):
 def info():
     return render_template('informatii.html')
 
-@app.route('/Numar_Cazuri')
+@app.route('/Numar_Cazuri/')
 def infected():
     return render_template('numar_cazuri.html')
 
