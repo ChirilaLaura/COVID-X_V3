@@ -36,8 +36,8 @@ def image():
     if request.method == 'POST':
         file = request.files['file']
         filename = secure_filename(file.filename)
-        file.save(os.path.join('uploads', filename))
-        return redirect(url_for('CovidX/Analizeaza_RMN/Rezultat', filename=filename))
+        file.save(os.path.join('Imagini_salvate', filename))
+        return redirect(url_for('Rezultat', filename=filename))
     return render_template('file_input_covid.html')
 
 
