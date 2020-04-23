@@ -10,6 +10,9 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from keras.applications import imagenet_utils
 from keras.backend import set_session
+import matplotlib.pyplot as plt
+from skimage.transform import resize
+
 #model modules
 
 import os, sys
@@ -27,7 +30,7 @@ global graph
 graph = tf.get_default_graph()
 
 
-@app.route('/CovidX/')
+@app.route('/')
 def index():
     return render_template('home.html')
 
@@ -37,11 +40,12 @@ def image():
         file = request.files['file']
         filename = secure_filename(file.filename)
         file.save(os.path.join('Imagini_salvate', filename))
-        return redirect(url_for('Rezultat', filename=filename))
-    return render_template('file_input_covid.html')
+        return redirect(url_for('prediction', filename=filename))
+    else:
+        return render_template('file_input_covid.html')
 
 
-@app.route('/Rezultat/<filename>')
+@app.route('/CovidX/Rezultat/<filename>')
 def prediction(filename):
     my_image = plt.imread(os.path.join('Imagini_salvate', filename))
     my_image_re = resize(my_image, (64, 64, 3))
