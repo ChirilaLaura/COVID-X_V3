@@ -10,6 +10,9 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from keras.applications import imagenet_utils
 from keras.backend import set_session
+import matplotlib.pyplot as plt
+from skimage.transform import resize
+
 #model modules
 
 import os, sys
@@ -38,14 +41,15 @@ def image():
     if request.method == 'POST':
         file = request.files['file']
         filename = secure_filename(file.filename)
-        file.save(os.path.join('Imagini_salvate/', filename))
-        return redirect(url_for('Rezultat', filename=filename))
-    return render_template('file_input_covid.html')
+        file.save(os.path.join('Imagini_salvate', filename))
+        return redirect(url_for('prediction', filename=filename))
+    else:
+        return render_template('file_input_covid.html')
 
 
-@app.route('/Rezultat/<filename>')
-def Rezultat(filename):
-    my_image = plt.imread(os.path.join('Imagini_salvate/', filename))
+@app.route('/CovidX/Rezultat/<filename>')
+def prediction(filename):
+    my_image = plt.imread(os.path.join('Imagini_salvate', filename))
     my_image_re = resize(my_image, (64, 64, 3))
 
     with graph.as_default():
