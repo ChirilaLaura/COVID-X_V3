@@ -1,20 +1,32 @@
-<!doctype html> <html> <head>
-    <title>Your Prediction!</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </head> <body style="background-color:black"> <div id="maintext"
-style="position:absolute; margin:auto; width:700px; height:300px; text-align:center; top:0; bottom: 0; left: 0; right: 0;">
-  <h1 class="text-light mb-5"> Your Prediction </h1>
-  <p class="text-light"> My algorithm gave this prediction: </p>
-  <table class="table-bordered text-light" style="width:100%">
-  <tr>
-    <th>Class</th>
-    <th>Probability</th>
-  </tr>
-  <tr>
-    <td>{{ predictions.class1 }}</td> <td>{{ predictions.prob1 }}</td> </tr> <tr>
-    <td>{{ predictions.class2 }}</td> <td>{{ predictions.prob2 }}</td> </tr> <tr>
-  </tr>
-</table> <a href="{{ url_for('image') }}"><button class="button mt-3">Try again?</button></a>
-</div>
+	{%include "header.html" %}
+<br><br><div class="container my-5">
+
+  <section>
+  <h3 class="font-weight-bold mb-4 pb-2">Your prediction</h3>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">{{ predictions.class1 }}</th>
+      <th scope="col">{{ predictions.class2 }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ predictions.prob1 }}</td>
+      <td>{{ predictions.prob2 }}</td>
+    </tr>
+  </tbody>
+</table>
+    
+
+
+  </section>
+
+</div> 
+<footer class="footer text-center mt-4 pb-4 pt-4 fixed-bottom" id="footer">
+  <div class="font-small">
+    &copy; Covid-Z 2020 | Part of the change
+  </div>
+</footer>
 </body>
 </html>
