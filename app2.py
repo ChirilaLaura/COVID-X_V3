@@ -61,7 +61,7 @@ def prediction(filename):
 
         with graph.as_default():
             set_session(sess)
-            probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
+            probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
             number_classes = ['This is not a X-Ray', 'This is a X-Ray']
             index = np.argsort(probabilities)
             predictions = {
@@ -74,8 +74,8 @@ def prediction(filename):
 
             if(number_classes[index[1]] == 'This is a X-Ray'):
                 print("FA ASTA E X-Ray")
-                probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
-                number_classes = ['Probably healthy', 'Probably infected']
+                probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
+                number_classes = ['Probably infected', 'Probably healthy']
                 index = np.argsort(probabilities)
                 predictions = {
                     "class1" : number_classes[index[0]],
