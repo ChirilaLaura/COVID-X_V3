@@ -18,7 +18,22 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
-	<script type="text/javascript">
+    <style>
+      html, body {
+        height: 100%;
+      }
+
+      img.one {
+        height: static;
+        width: static;
+      }
+
+      img.two {
+        height:30%;
+        width: 50%;
+      }
+    </style>
+	  <script type="text/javascript">
 	  var data = null;
 
 		var xhr = new XMLHttpRequest();
@@ -63,14 +78,18 @@
               <a class="nav-link waves-effect" href="#global_stats">Statistics</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="#prevention_lungs">Prevention</a>
+              <a class="nav-link waves-effect" href="#prevention_lungs">Halt of lung diseases</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link waves-effect" href="#scan-lungs">Lungs Scanner</a>
             </li>
             <li class="nav-item">
-      				<a class="nav-link waves-effect" href="#prevention_brain">Brain Scanner</a>
+      				<a class="nav-link waves-effect" href="#prevention_brain">About brain diseases</a>
       			</li>
+
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="#scan_brain">Brain Scanner</a>
+            </li>
           </ul>
 
           <ul class="navbar-nav nav-flex-icons">
