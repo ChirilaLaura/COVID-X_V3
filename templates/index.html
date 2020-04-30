@@ -100,15 +100,11 @@
 
         </section>    </div>
         <!-- Section: Block Content -->
-  <section class="radiogr" id="scan">
-    
+  <section class="radiogr" id="scan-lungs">
     <div class="mask rgba-black-strong py-5">
-
-
-        <h3 class="font-weight-bold text-center white-text pb-2">Let the AI scan your X-RAY</h3>
-        <p class="lead text-center white-text pt-2 mb-5">Upload your X-Ray and find out if you have COVID-19</p>
-
-        <form class="input-grey mb-5" method="post" enctype="multipart/form-data">
+      <h3 class="font-weight-bold text-center white-text pb-2">Let the AI scan your X-RAY</h3>
+      <p class="lead text-center white-text pt-2 mb-5">Upload your X-Ray and find out if you have COVID-19</p>
+				<form class="input-grey mb-5" method="post" enctype="multipart/form-data">
           <div class="form-row">
             <div class="col-md-4 ml-auto">
               <div class="input-group input-group-lg z-depth-1">
@@ -116,23 +112,18 @@
                   <span class="input-group-text rgba-white-light border-0"><i class="fa fa-photo white-text"></i></span>
                 </div>
                   <div class="custom-file">
-					<input type="file" class="custom-file-input" id="inputGroupFile01"
-					  aria-describedby="inputGroupFileAddon01" accept="image/*" name="file" required>
-					<label class="custom-file-label inputf" for="inputGroupFile01" >Choose file</label>
+					<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" accept="image/*" name="file" required>
+					<label class="custom-file-label inputf" for="inputGroupFile01">Choose file</label>
 				  </div>
-				
-              </div>
-            </div>
+				</div>
+			</div>
+			<div class="col-md-2 mr-auto">
+				<button class="btn btn-block btn-primary btn-md" type="submit" value="Upload">Scan</button>
+      </div>
+    			</div>
+  			</form>
+			</div>
+		</section>
 
-            <div class="col-md-2 mr-auto">
-              <button class="btn btn-block btn-primary btn-md" type="submit" value="Upload">Scan</button>
-            </div>
-          </div>
-        </form>
 		
-
-    </div>
-
-  </section>
-
-    {%include "footer.html" %}
+	{%include "footer.html" %}
