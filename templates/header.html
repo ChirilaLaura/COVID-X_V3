@@ -26,15 +26,15 @@
 
 		xhr.addEventListener("readystatechange", function () {
 		  if (this.readyState === this.DONE) {
-			console.log(JSON.parse(this.responseText));
-			var responseObj = JSON.parse(this.responseText);
-			var totalCazuri = responseObj.cases;
-			var vindecati = responseObj.recovered;
-			var decese = responseObj.deaths;
-			document.getElementById("total_infected").innerHTML = totalCazuri.toLocaleString();
-			document.getElementById('total_infected').setAttribute("data-to", totalCazuri.toLocaleString());
-			document.getElementById("vindecati").innerHTML = vindecati.toLocaleString();
-			document.getElementById("decese").innerHTML = decese.toLocaleString();
+  			console.log(JSON.parse(this.responseText));
+  			var responseObj = JSON.parse(this.responseText);
+  			var totalCazuri = responseObj.cases;
+  			var vindecati = responseObj.recovered;
+  			var decese = responseObj.deaths;
+  			document.getElementById("total_infected").innerHTML = totalCazuri.toLocaleString();
+  			document.getElementById('total_infected').setAttribute("data-to", totalCazuri.toLocaleString());
+  			document.getElementById("vindecati").innerHTML = vindecati.toLocaleString();
+  			document.getElementById("decese").innerHTML = decese.toLocaleString();
 		  }
 		});
 
@@ -63,13 +63,13 @@
               <a class="nav-link waves-effect" href="#global_stats">Statistics</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="#prevention">Prevention</a>
+              <a class="nav-link waves-effect" href="#prevention_lungs">Prevention</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link waves-effect" href="#scan-lungs">Lungs Scanner</a>
             </li>
-      			<li>
-      				<a class="nav-link waves-effect" href="templates/comming_soon.html">Brain Scannere</a>
+            <li class="nav-item">
+      				<a class="nav-link waves-effect" href="#prevention_brain">Brain Scanner</a>
       			</li>
           </ul>
 
