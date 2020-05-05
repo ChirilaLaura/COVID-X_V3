@@ -1,0 +1,9 @@
+Flask 
+keras
+tensorflow==1.14.0
+matplotlib
+numpy
+os-sys
+Werkzeug
+sklearn
+

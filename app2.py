@@ -5,16 +5,18 @@ from pathlib import Path
 app = Flask(__name__)
 
 import tensorflow as tf
+tf.compat.v1.disable_v2_behavior()
+# print(tf.executing_eagerly())
 from tensorflow import keras
 from keras.applications.vgg16 import preprocess_input, decode_predictions
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-from keras.applications import imagenet_utils
-from keras.backend import set_session
+from tensorflow.keras.applications import imagenet_utils
+from tensorflow.compat.v1.keras.backend import set_session
+from tensorflow.compat.v1 import get_default_graph
 import matplotlib.pyplot as plt
 from skimage.transform import resize
 
-#model modules
 
 import os, sys
 import numpy as np
@@ -33,7 +35,7 @@ global model_xray
 model_xray = load_model('Modeleh5/model_xray.h5')
 
 global graph
-graph = tf.get_default_graph()
+graph = get_default_graph()
 
 @app.route('/')
 def index():
@@ -48,7 +50,7 @@ def image():
         return redirect(url_for('prediction', filename=filename))
     return render_template('index.html')
 
-@app.route('/rezultat/') 
+@app.route('/rezultat/')
 def pleacadeaici():
     return redirect(url_for('index'))
 
@@ -59,10 +61,24 @@ def prediction(filename):
         my_image = plt.imread(os.path.join('Imagini_salvate', filename))
         my_image_re = resize(my_image, (64, 64, 3))
 
-        with graph.as_default():
-            set_session(sess)
-            probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
-            number_classes = ['This is not a X-Ray', 'This is a X-Ray']
+
+    with graph.as_default():
+        set_session(sess)
+        probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
+        number_classes = ['This is not a X-Ray', 'This is a X-Ray']
+        index = np.argsort(probabilities)
+        predictions = {
+            "class1" : number_classes[index[0]],
+            "class2" : number_classes[index[1]],
+            "prob1" : probabilities[index[0]],
+            "prob2" : probabilities[index[1]],
+            "image" : filename,
+        }
+        # tf.compat.v1.clear_session()
+        if(number_classes[index[1]] == 'This is a X-Ray'):
+            print("FA ASTA E X-Ray")
+            probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
+            number_classes = ['Probably infected', 'Probably healthy']
             index = np.argsort(probabilities)
             predictions = {
                 "class1" : number_classes[index[0]],
@@ -71,24 +87,11 @@ def prediction(filename):
                 "prob2" : probabilities[index[1]],
                 "image" : filename,
             }
+        return render_template('rezultat.html', predictions=predictions)
 
-            if(number_classes[index[1]] == 'This is a X-Ray'):
-                print("FA ASTA E X-Ray")
-                probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
-                number_classes = ['Probably infected', 'Probably healthy']
-                index = np.argsort(probabilities)
-                predictions = {
-                    "class1" : number_classes[index[0]],
-                    "class2" : number_classes[index[1]],
-                    "prob1" : probabilities[index[0]],
-                    "prob2" : probabilities[index[1]],
-                    "image" : filename,
-                }
-                return render_template('rezultat.html', predictions=predictions)
-           
-            print(predictions)
-            return render_template('rezultat.html', predictions=predictions)
-    return redirect(url_for('index'))          
+        print(predictions)
+        return render_template('rezultat.html', predictions=predictions)
+    return redirect(url_for('index'))
 
 
 
