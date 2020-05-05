@@ -1,12 +1,13 @@
+import tensorflow as tf 
+tf.compat.v1.disable_eager_execution()
+#main thing that makes the whole project works(this will be here until we train another model with EAAAGERRR EXECUTIOOON LAURAAAA)
+
 from flask import Flask, render_template, request, redirect, url_for,  Response, jsonify
 from werkzeug.utils import secure_filename
 from pathlib import Path
-# web site modules
 app = Flask(__name__)
+#web modules activated 
 
-import tensorflow as tf
-tf.compat.v1.disable_v2_behavior()
-# print(tf.executing_eagerly())
 from tensorflow import keras
 from keras.applications.vgg16 import preprocess_input, decode_predictions
 from tensorflow.keras.models import load_model
@@ -16,7 +17,7 @@ from tensorflow.compat.v1.keras.backend import set_session
 from tensorflow.compat.v1 import get_default_graph
 import matplotlib.pyplot as plt
 from skimage.transform import resize
-
+#AI modules(useless...)
 
 import os, sys
 import numpy as np
@@ -70,11 +71,11 @@ def prediction(filename):
         predictions = {
             "class1" : number_classes[index[0]],
             "class2" : number_classes[index[1]],
-            "prob1" : probabilities[index[0]],
+            "prob1" : float(1.00 - probabilities[index[1]]),
             "prob2" : probabilities[index[1]],
             "image" : filename,
         }
-        # tf.compat.v1.clear_session()
+
         if(number_classes[index[1]] == 'This is a X-Ray'):
             print("FA ASTA E X-Ray")
             probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
