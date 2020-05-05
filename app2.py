@@ -71,7 +71,7 @@ def prediction(filename):
         predictions = {
             "class1" : number_classes[index[0]],
             "class2" : number_classes[index[1]],
-            "prob1" : float(1.00 - probabilities[index[1]]),
+            "prob1" : format(probabilities[index[0]], '.7f'),
             "prob2" : probabilities[index[1]],
             "image" : filename,
         }
@@ -84,7 +84,7 @@ def prediction(filename):
             predictions = {
                 "class1" : number_classes[index[0]],
                 "class2" : number_classes[index[1]],
-                "prob1" : probabilities[index[0]],
+                "prob1" : format(probabilities[index[0]], '.7f'),
                 "prob2" : probabilities[index[1]],
                 "image" : filename,
             }
