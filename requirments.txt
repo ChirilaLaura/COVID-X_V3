@@ -1,0 +1,7 @@
+tensorflow 
+flask 
+keras
+tensorflow
+os-sys
+matplotlib
+numpy
