@@ -14,17 +14,19 @@
 </head>
 
 <body>
-
+	{%include "header.html" %}
 	<div id="notfound">
 		<div class="notfound">
 			<div class="notfound-404">
 				<h1>Oops!</h1>
-				<h2>The image size is too big!</h2>
+				<h2>You see this because:</h2>  
+				<h2>1) after receiving the result, we delete the image you uploaded so that the security of your data is not exposed more than necessary.</h2> 
+				<h2>2) The size of the image you uploaded is too big.The maximum size is 8 megabytes</h2> 
 			</div>
 			<a href="https://covid-z.vision/">Go to homepage</a>
 		</div>
 	</div>
-
+	{%include "footer.html" %}
 </body>
 
 </html>

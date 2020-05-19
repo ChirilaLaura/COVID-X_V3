@@ -12,7 +12,6 @@ from tensorflow import keras
 from keras.applications.vgg16 import preprocess_input, decode_predictions
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications import imagenet_utils
 from tensorflow.compat.v1.keras.backend import set_session
 from tensorflow.compat.v1 import get_default_graph
 import matplotlib.pyplot as plt
@@ -44,57 +43,53 @@ def index():
 
 @app.route('/', methods=['GET', 'POST'])
 def image():
-    if request.method == 'POST':
-        file = request.files['file']
-        filename = secure_filename(file.filename)
-        file.save(os.path.join('Imagini_salvate', filename))
-        return redirect(url_for('prediction', filename=filename))
-    return render_template('index.html')
+	if request.method == 'POST':
+		file = request.files['file']
+		filename = secure_filename(file.filename)
+		file.save(os.path.join('Imagini_salvate', filename))
+		return redirect(url_for('prediction', filename=filename))
+	return render_template('index.html')
 
 @app.route('/rezultat/')
 def pleacadeaici():
-    return redirect(url_for('index'))
+	return redirect(url_for('index'))
 
 @app.route('/rezultat/<filename>', methods=['GET', 'POST'])
 def prediction(filename):
-    my_file = Path("Imagini_salvate/" + str(filename))
-    if my_file.is_file():
-        my_image = plt.imread(os.path.join('Imagini_salvate', filename))
-        my_image_re = resize(my_image, (64, 64, 3))
+	my_file = Path("Imagini_salvate/" + str(filename))
+	file_size = os.path.getsize(my_file)
+	my_image_re = None 
 
-
-    with graph.as_default():
-        set_session(sess)
-        probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
-        number_classes = ['This is not a X-Ray', 'This is a X-Ray']
-        index = np.argsort(probabilities)
-        predictions = {
-            "class1" : number_classes[index[0]],
-            "class2" : number_classes[index[1]],
-            "prob1" : format(probabilities[index[0]], '.7f'),
-            "prob2" : probabilities[index[1]],
-            "image" : filename,
-        }
-
-        if(number_classes[index[1]] == 'This is a X-Ray'):
-            print("FA ASTA E X-Ray")
-            probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
-            number_classes = ['Probably infected', 'Probably healthy']
-            index = np.argsort(probabilities)
-            predictions = {
-                "class1" : number_classes[index[0]],
-                "class2" : number_classes[index[1]],
-                "prob1" : format(probabilities[index[0]], '.7f'),
-                "prob2" : probabilities[index[1]],
-                "image" : filename,
-            }
-        return render_template('rezultat.html', predictions=predictions)
-
-        print(predictions)
-        return render_template('rezultat.html', predictions=predictions)
-    return redirect(url_for('index'))
-
-
+	if my_file.is_file() and file_size < 8 * 1000000:
+		my_image = plt.imread(os.path.join('Imagini_salvate', filename))
+		my_image_re = resize(my_image, (64, 64, 3))
+		with graph.as_default():
+			set_session(sess)
+			probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
+			number_classes = ['This is not a X-Ray', 'This is a X-Ray']
+			index = np.argsort(probabilities)
+			predictions = {
+				"class1" : number_classes[index[0]],
+				"class2" : number_classes[index[1]],
+				"prob1" : format(probabilities[index[0]] * 100, '.7f'),
+				"prob2" : format(probabilities[index[1]] * 100, '.7f'), 
+			}
+			if(number_classes[index[1]] == 'This is a X-Ray'):
+				print("FA ASTA E X-Ray")
+				probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
+				number_classes = ['Probably infected', 'Probably healthy']
+				index = np.argsort(probabilities)
+				predictions = {
+					"class1" : number_classes[index[0]],
+					"class2" : number_classes[index[1]],
+					"prob1" : format(probabilities[index[0]], '.7f'),
+					"prob2" : probabilities[index[1]],
+					"image" : filename,
+				}
+			os.remove('Imagini_salvate/' + str(filename))
+		return render_template('rezultat.html', predictions=predictions)
+	else:
+		return render_template('size_error.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

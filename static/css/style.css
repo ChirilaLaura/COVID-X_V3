@@ -2,7 +2,7 @@ body {
 	padding-left:0px !important;
 	margin-left:0px !important;
 	overflow-x: hidden;
-}
+} 
 .d-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
