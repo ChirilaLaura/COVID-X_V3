@@ -33,7 +33,7 @@ global model_infectat
 model_infectat = load_model('Modeleh5/model_covid.h5')
 global model_xray
 model_xray = load_model('Modeleh5/model_xray.h5')
-
+global my_image_re
 global graph
 graph = get_default_graph()
 
@@ -55,41 +55,41 @@ def pleacadeaici():
 	return redirect(url_for('index'))
 
 @app.route('/rezultat/<filename>', methods=['GET', 'POST'])
-def prediction(filename):
-	my_file = Path("Imagini_salvate/" + str(filename))
-	file_size = os.path.getsize(my_file)
-	my_image_re = None 
+def prediction(filename): 
+	if Path("Imagini_salvate/" + str(filename)).is_file() == False: 
+		return render_template('size_error.html') 
+	else:		
+		my_file = Path("Imagini_salvate/" + str(filename))
+		file_size = os.path.getsize(my_file)
 
-	if my_file.is_file() and file_size < 8 * 1000000:
-		my_image = plt.imread(os.path.join('Imagini_salvate', filename))
-		my_image_re = resize(my_image, (64, 64, 3))
-		with graph.as_default():
-			set_session(sess)
-			probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
-			number_classes = ['This is not a X-Ray', 'This is a X-Ray']
-			index = np.argsort(probabilities)
-			predictions = {
-				"class1" : number_classes[index[0]],
-				"class2" : number_classes[index[1]],
-				"prob1" : format(probabilities[index[0]] * 100, '.7f'),
-				"prob2" : format(probabilities[index[1]] * 100, '.7f'), 
-			}
-			if(number_classes[index[1]] == 'This is a X-Ray'):
-				print("FA ASTA E X-Ray")
-				probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
-				number_classes = ['Probably infected', 'Probably healthy']
+		if my_file.is_file() and file_size < 8 * 1000000: 
+			my_image = plt.imread(os.path.join('Imagini_salvate', filename))
+			my_image_re = resize(my_image, (64, 64, 3))
+			with graph.as_default():
+				set_session(sess)
+				probabilities = model_xray.predict(np.array([my_image_re,]))[0,:]
+				number_classes = ['This is not a X-Ray', 'This is a X-Ray']
 				index = np.argsort(probabilities)
 				predictions = {
 					"class1" : number_classes[index[0]],
 					"class2" : number_classes[index[1]],
-					"prob1" : format(probabilities[index[0]], '.7f'),
-					"prob2" : probabilities[index[1]],
-					"image" : filename,
+					"prob1" : format(probabilities[index[0]] * 100, '.7f'),
+					"prob2" : format(probabilities[index[1]] * 100, '.7f'), 
 				}
+				if(number_classes[index[1]] == 'This is a X-Ray'):
+					print("FA ASTA E X-Ray")
+					probabilities = model_infectat.predict(np.array([my_image_re,]))[0,:]
+					number_classes = ['Probably infected', 'Probably healthy']
+					index = np.argsort(probabilities)
+					predictions = {
+						"class1" : number_classes[index[0]],
+						"class2" : number_classes[index[1]],
+						"prob1" : format(probabilities[index[0]] * 100, '.7f'),
+						"prob2" : format(probabilities[index[1]] * 100, '.7f'),
+						"image" : filename,
+					}
 			os.remove('Imagini_salvate/' + str(filename))
 		return render_template('rezultat.html', predictions=predictions)
-	else:
-		return render_template('size_error.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
